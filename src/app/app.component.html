@@ -1,56 +1,74 @@
 <div>
-  <form (ngSubmit)="calculate()" novalidate>
-    <div>
-      Wheel diameter:
-      <div>
-        <input type="number"
-               [(ngModel)]="bike.wheel.diameter"
-               step="0.05"
-               placeholder="00.00"
-               [ngModelOptions]="{standalone: true}"
-        />
-      </div>
+
+  <form [formGroup]="form" novalidate>
+    <div formGroupName="wheel">
+      <label>Wheel diameter:</label>
+      <input type="number"
+             formControlName="diameter"
+             step="0.05"
+             placeholder="00.00"
+      />
     </div>
-    <div>
+
+    <div formArrayName="chainrings">
       Chainrings:
-      <div *ngFor="let chainring of bike.chainrings">
-        <input type="number"
-               [(ngModel)]="chainring.teeth"
-               placeholder="number of teeth"
-               [ngModelOptions]="{standalone: true}"
-        />
+      <div *ngFor="let chainring of form.controls.chainrings.controls; let i=index">
+        <div [formGroupName]="i">
+          <input type="hidden"
+                 formControlName="id"
+                 value="{{i}}"
+          />
+          <input type="number"
+                 formControlName="teeth"
+                 placeholder="number of teeth"
+          />
+        </div>
+        <button (click)="add('chainrings', i+1)">Add</button>
+        <button *ngIf="form.controls.chainrings.controls.length > 1" (click)="remove('chainrings', i)">
+          Remove
+        </button>
       </div>
-      <button (ng-click)="add(bike.chainrings, 'chainring')">Add</button>
-      <button (ng-click)="removeLast(bike.chainrings)">Remove</button>
+
     </div>
-    <div>
+
+    <div formArrayName="cogs">
       Cogs:
-      <div *ngFor="let cog of bike.cogs">
-        <input type="number"
-               [(ngModel)]="cog.teeth"
-               placeholder="number of teeth"
-               [ngModelOptions]="{standalone: true}"
-        />
+      <div *ngFor="let cog of form.controls.cogs.controls; let i=index">
+        <div [formGroupName]="i">
+          <input type="hidden"
+                 formControlName="id"
+                 value="{{i}}"
+          />
+          <input type="number"
+                 formControlName="teeth"
+                 placeholder="number of teeth"
+          />
+        </div>
+        <button (click)="add('cogs', i+1)">Add</button>
+        <button *ngIf="form.controls.cogs.controls.length > 1" (click)="remove('cogs', i)">
+          Remove
+        </button>
       </div>
-      <button (ng-click)="add(bike.cogs, 'chainring')">Add</button>
-      <button (ng-click)="removeLast(bike.cogs)">Remove</button>
+
     </div>
-    <input type="submit" value="Calculate"/>
+    <button (click)="updateOutput()">Calculate</button>
   </form>
 
-  <!--<table border="1">-->
-  <!--<thead>-->
-  <!--<tr>-->
-  <!--<th></th>-->
-  <!--<th ng-repeat="cog in output.cogs">{{cog.teeth}}</th>-->
-  <!--</tr>-->
-  <!--</thead>-->
-  <!--<tbody>-->
-  <!--<tr ng-repeat="chainring in output.chainrings">-->
-  <!--<th>{{chainring.teeth}}</th>-->
-  <!--<td ng-repeat="(key, value) in output.gearInches[chainring.teeth]">{{value}}</td>-->
-  <!--</tr>-->
-  <!--</tbody>-->
-  <!--</table>-->
+  <table border="1" *ngIf="output != null">
+    <thead>
+    <tr>
+      <th></th>
+      <th *ngFor="let key of output.cogs | keys">{{output.cogs[key].teeth}}</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let chainring of output.chainrings">
+      <th>{{chainring.teeth}}</th>
+      <td *ngFor="let key of output.gearInchesMap[chainring.id] | keys">
+        {{output.gearInchesMap[chainring.id][key]}}
+      </td>
+    </tr>
+    </tbody>
+  </table>
 
 </div>

@@ -1,38 +1,34 @@
 import {Injectable} from "@angular/core";
-import {Bike} from "../model/bike";
+import {Bike} from "../model/bike.interface";
 
 @Injectable()
 export class CalculateService {
 
-  private output: any = {};
-  private bike: Bike = new Bike();
+  private bike: Bike;
+  private gearInchesMap: any;
 
-  constructor() {}
+  constructor() {
+  }
 
-  public getOutput(bike: Bike): any {
+  public getGearInchesMap(bike: Bike): any {
     this.bike = bike;
-    this.output = {};
-    this.setHeaders();
-    this.setValues();
-    return this.output;
+    this.gearInchesMap = {}
+    this.setupGearInchesMap();
+    return this.gearInchesMap;
   }
 
-  private setHeaders(): void {
-    this.output.cogs = this.bike.cogs;
-    this.output.chainrings = this.bike.chainrings;
+  private setupGearInchesMap(): void {
+    this.gearInchesMap = {};
+    for (let chainring of this.bike.chainrings) {
+      this.gearInchesMap[chainring.id] = {};
+      for (let cog of this.bike.cogs) {
+        this.gearInchesMap[chainring.id][cog.id] = this.getGearInches(this.bike.wheel.diameter, chainring.teeth, cog.teeth);
+      }
+    }
   }
 
-  private setValues(): void {
-    // this.bike.chainrings.forEach(function (chainring) {
-    //   this.output.value[chainring.teeth] = {};
-    //   this.bike.cogs.forEach(function (cog) {
-    //     this.output.value[chainring.teeth][cog.teeth] = this.getGearInches(chainring, cog);
-    //   });
-    // });
-  }
-
-  private getGearInches(chainring, cog) {
-    return this.bike.wheel.diameter * (chainring.teeth / cog.teeth);
+  private getGearInches(wheelDiameter, chainringTeeth, cogTeeth): number {
+    return wheelDiameter * (chainringTeeth / cogTeeth);
   }
 
 }

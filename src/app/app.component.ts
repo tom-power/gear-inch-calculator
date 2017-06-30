@@ -1,7 +1,6 @@
-import {Component} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {CalculateService} from "./service/calculate.service";
-import {Bike} from "./model/bike";
-import {Sprocket} from "./model/sprocket";
+import {FormBuilder, FormGroup, FormArray} from "@angular/forms";
 
 @Component({
   selector: 'app-root',
@@ -9,25 +8,49 @@ import {Sprocket} from "./model/sprocket";
   styleUrls: ['./app.component.css'],
   providers: [CalculateService]
 })
-export class AppComponent {
-  bike: Bike = new Bike();
+export class AppComponent implements OnInit {
+  public form: FormGroup;
+  public output: any;
 
-  constructor(private calculateService: CalculateService) {
-    this.bike.chainrings.push(new Sprocket());
-    this.bike.cogs.push(new Sprocket());
+  constructor(private calculateService: CalculateService,
+              private fb: FormBuilder) {
   }
 
-  calculate(): any {
-    return this.calculateService.getOutput(this.bike);
+  ngOnInit() {
+    this.form = this.fb.group({
+      wheel: this.fb.group({diameter: null}),
+      chainrings: this.fb.array([
+        this.initSprocket(0)
+      ]),
+      cogs: this.fb.array([
+        this.initSprocket(0)
+      ])
+    });
   }
 
-  add(things, name): void {
-    things.push({'id': name + things.length + 1});
+  initSprocket(id: number) {
+    return this.fb.group({id: id, teeth: null});
   }
 
-  removeLast(things): void {
-    if (things.length - 1 !== 0) {
-      things.pop();
+  add(controlName: string, id: number) {
+    const control = <FormArray>this.form.controls[controlName];
+    console.log(id);
+    control.push(this.initSprocket(id));
+  }
+
+  remove(controlName: string, i: number) {
+    const control = <FormArray>this.form.controls[controlName];
+    control.removeAt(i);
+  }
+
+  updateOutput(): any {
+    if (this.form.valid) {
+      let bike = this.form.value;
+      this.output = {};
+      this.output.cogs = bike.cogs;
+      this.output.chainrings = bike.chainrings;
+      console.log(this.calculateService.getGearInchesMap(bike));
+      this.output.gearInchesMap = this.calculateService.getGearInchesMap(bike);
     }
   }
 }
