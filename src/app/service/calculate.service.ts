@@ -4,13 +4,13 @@ import {Bike} from "../model/bike";
 @Injectable()
 export class CalculateService {
 
-  private bike: Bike;
-  private output: any;
+  private output: any = {};
+  private bike: Bike = new Bike();
 
-  constructor(bike: Bike) {
-  }
+  constructor() {}
 
-  getOutput(): any {
+  public getOutput(bike: Bike): any {
+    this.bike = bike;
     this.output = {};
     this.setHeaders();
     this.setValues();
@@ -18,20 +18,21 @@ export class CalculateService {
   }
 
   private setHeaders(): void {
-    this.output.cogs = this.bike.cassette.cogs;
+    this.output.cogs = this.bike.cogs;
     this.output.chainrings = this.bike.chainrings;
   }
 
   private setValues(): void {
-    this.bike.chainrings.forEach(function (chainring) {
-      this.output.value[chainring.teeth] = {};
-      this.bike.cassette.cogs.forEach(function (cog) {
-        this.output.value[chainring.teeth][cog.teeth] = this.bike.wheel.diameter * (chainring.teeth / cog.teeth);
-      });
-    });
+    // this.bike.chainrings.forEach(function (chainring) {
+    //   this.output.value[chainring.teeth] = {};
+    //   this.bike.cogs.forEach(function (cog) {
+    //     this.output.value[chainring.teeth][cog.teeth] = this.getGearInches(chainring, cog);
+    //   });
+    // });
+  }
+
+  private getGearInches(chainring, cog) {
+    return this.bike.wheel.diameter * (chainring.teeth / cog.teeth);
   }
 
 }
-
-
-
