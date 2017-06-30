@@ -2,6 +2,9 @@ import {Component, OnInit} from "@angular/core";
 import {CalculateService} from "./service/calculate.service";
 import {FormGroup} from "@angular/forms";
 import {FormService} from "./service/form.service";
+import {ActivatedRoute, Params} from "@angular/router";
+import {Bike} from "./model/bike.interface";
+import {Sprocket} from "./model/sprocket.interface";
 
 @Component({
   selector: 'app-root',
@@ -14,11 +17,17 @@ export class AppComponent implements OnInit {
   public output: any;
 
   constructor(private calculateService: CalculateService,
-              private formService: FormService) {
+              private formService: FormService,
+              private route: ActivatedRoute) {
   }
 
   ngOnInit() {
-    this.form = this.formService.initForm();
+    this.route.queryParams.subscribe((params: Params) => {
+      this.form = this.formService.initForm(params);
+      if (this.form.valid) {
+        this.updateOutput();
+      }
+    });
   }
 
   add(controlName: string, id: number) {
@@ -31,11 +40,32 @@ export class AppComponent implements OnInit {
 
   updateOutput(): any {
     if (this.form.valid) {
-      let bike = this.form.value;
+      let bike: Bike = this.form.value;
       this.output = {};
       this.output.cogs = bike.cogs;
       this.output.chainrings = bike.chainrings;
       this.output.gearInchesMap = this.calculateService.getGearInchesMap(bike);
+      console.log(this.getLink(bike));
+      this.output.link = this.getLink(bike);
     }
   }
+
+  private getLink(bike: Bike) {
+    var link = "/";
+    link = link.concat("?");
+    link = link.concat("wheelDiameter=".concat("" + bike.wheel.diameter));
+    link = link.concat("&");
+    link = link.concat("chainrings=".concat("[" + this.getString(bike.chainrings)) + "]");
+    link = link.concat("&");
+    link = link.concat("cogs=".concat("[" + this.getString(bike.cogs)) + "]");
+    return link;
+  }
+
+  private getString(sprockets: Sprocket[]): string {
+    return sprockets.reduce((str, sprocket) => {
+      var comma = str != "" ? ",": "";
+      return str + comma + sprocket.teeth
+    }, "");
+  }
+
 }

@@ -4,6 +4,11 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {HttpModule} from "@angular/http";
 import {AppComponent} from "./app.component";
 import {KeysPipe} from "./utils/KeysPipe";
+import { RouterModule, Routes } from '@angular/router';
+
+const appRoutes: Routes = [
+  { path: '*', component: AppComponent }
+];
 
 @NgModule({
   declarations: [
@@ -11,6 +16,7 @@ import {KeysPipe} from "./utils/KeysPipe";
     KeysPipe
   ],
   imports: [
+    RouterModule.forRoot(appRoutes),
     BrowserModule,
     ReactiveFormsModule,
     HttpModule
