@@ -4,7 +4,6 @@ import {FormGroup} from "@angular/forms";
 import {FormService} from "./service/form.service";
 import {ActivatedRoute, Params} from "@angular/router";
 import {Bike} from "./model/bike.interface";
-import {Sprocket} from "./model/sprocket.interface";
 
 @Component({
   selector: 'app-root',

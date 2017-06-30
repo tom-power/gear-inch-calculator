@@ -7,7 +7,8 @@ import {Sprocket} from "../model/sprocket.interface";
 @Injectable()
 export class FormService {
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder) {
+  }
 
   public initForm(params: Params) {
     return this.fb.group({
@@ -17,11 +18,8 @@ export class FormService {
     });
   }
 
-  private getNumberArray(param: string) {
-    if (param != null) {
-      return JSON.parse(param);
-    }
-    return param;
+  private getNumberArray(param: string): number[] {
+    return param != null ? JSON.parse(param) : param;
   }
 
   private initWheel(diameter: number) {
@@ -72,7 +70,7 @@ export class FormService {
 
   private getString(sprockets: Sprocket[]): string {
     return sprockets.reduce((str, sprocket) => {
-      var comma = str != "" ? ",": "";
+      var comma = str != "" ? "," : "";
       return str + comma + sprocket.teeth
     }, "");
   }

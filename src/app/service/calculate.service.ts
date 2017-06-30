@@ -7,9 +7,6 @@ export class CalculateService {
   private bike: Bike;
   private gearInchesMap: any;
 
-  constructor() {
-  }
-
   public getGearInchesMap(bike: Bike): any {
     this.bike = bike;
     this.gearInchesMap = {}
