@@ -1,7 +1,8 @@
 import {Injectable} from "@angular/core";
 import {FormBuilder, FormArray, FormGroup, Validators} from "@angular/forms";
 import {Params} from "@angular/router";
-import {isUndefined} from "util";
+import {Bike} from "../model/bike.interface";
+import {Sprocket} from "../model/sprocket.interface";
 
 @Injectable()
 export class FormService {
@@ -56,5 +57,25 @@ export class FormService {
     const control = <FormArray>form.controls[controlName];
     control.removeAt(i);
   }
+
+
+  getLink(bike: Bike) {
+    var link = "/";
+    link = link.concat("?");
+    link = link.concat("wheelDiameter=".concat("" + bike.wheel.diameter));
+    link = link.concat("&");
+    link = link.concat("chainrings=".concat("[" + this.getString(bike.chainrings)) + "]");
+    link = link.concat("&");
+    link = link.concat("cogs=".concat("[" + this.getString(bike.cogs)) + "]");
+    return link;
+  }
+
+  private getString(sprockets: Sprocket[]): string {
+    return sprockets.reduce((str, sprocket) => {
+      var comma = str != "" ? ",": "";
+      return str + comma + sprocket.teeth
+    }, "");
+  }
+
 
 }

@@ -45,27 +45,8 @@ export class AppComponent implements OnInit {
       this.output.cogs = bike.cogs;
       this.output.chainrings = bike.chainrings;
       this.output.gearInchesMap = this.calculateService.getGearInchesMap(bike);
-      console.log(this.getLink(bike));
-      this.output.link = this.getLink(bike);
+      this.output.link = this.formService.getLink(bike);
     }
-  }
-
-  private getLink(bike: Bike) {
-    var link = "/";
-    link = link.concat("?");
-    link = link.concat("wheelDiameter=".concat("" + bike.wheel.diameter));
-    link = link.concat("&");
-    link = link.concat("chainrings=".concat("[" + this.getString(bike.chainrings)) + "]");
-    link = link.concat("&");
-    link = link.concat("cogs=".concat("[" + this.getString(bike.cogs)) + "]");
-    return link;
-  }
-
-  private getString(sprockets: Sprocket[]): string {
-    return sprockets.reduce((str, sprocket) => {
-      var comma = str != "" ? ",": "";
-      return str + comma + sprocket.teeth
-    }, "");
   }
 
 }

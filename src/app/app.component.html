@@ -2,17 +2,19 @@
 
   <form [formGroup]="form" novalidate>
     <div formGroupName="wheel">
-      <label>Wheel diameter:</label>
-      <input type="number"
-             formControlName="diameter"
-             step="0.05"
-             placeholder="00.00"
-      />
+      Wheel diameter:
+      <div>
+        <input type="number"
+               formControlName="diameter"
+               step="0.05"
+               placeholder="00.00"
+        />
+      </div>
     </div>
 
     <div formArrayName="chainrings">
       Chainrings:
-      <div *ngFor="let chainring of form.controls.chainrings.controls; let i=index">
+      <div *ngFor="let chainring of form.controls.chainrings.controls; let i=index;let last=last">
         <div [formGroupName]="i">
           <input type="hidden"
                  formControlName="id"
@@ -23,17 +25,18 @@
                  placeholder="number of teeth"
           />
         </div>
-        <button (click)="add('chainrings', i+1)">Add</button>
-        <button *ngIf="form.controls.chainrings.controls.length > 1" (click)="remove('chainrings', i)">
-          Remove
-        </button>
+        <div *ngIf="last">
+          <button (click)="add('chainrings', i+1)">Add</button>
+          <button *ngIf="form.controls.chainrings.controls.length > 1" (click)="remove('chainrings', i)">
+            Remove
+          </button>
+        </div>
       </div>
-
     </div>
 
     <div formArrayName="cogs">
       Cogs:
-      <div *ngFor="let cog of form.controls.cogs.controls; let i=index">
+      <div *ngFor="let cog of form.controls.cogs.controls; let i=index; let last=last">
         <div [formGroupName]="i">
           <input type="hidden"
                  formControlName="id"
@@ -44,10 +47,12 @@
                  placeholder="number of teeth"
           />
         </div>
-        <button (click)="add('cogs', i+1)">Add</button>
-        <button *ngIf="form.controls.cogs.controls.length > 1" (click)="remove('cogs', i)">
-          Remove
-        </button>
+        <div *ngIf="last">
+          <button (click)="add('cogs', i+1)">Add</button>
+          <button *ngIf="form.controls.cogs.controls.length > 1" (click)="remove('cogs', i)">
+            Remove
+          </button>
+        </div>
       </div>
 
     </div>
