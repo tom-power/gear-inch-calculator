@@ -1,46 +1,32 @@
 import {Component, OnInit} from "@angular/core";
 import {CalculateService} from "./service/calculate.service";
-import {FormBuilder, FormGroup, FormArray} from "@angular/forms";
+import {FormGroup} from "@angular/forms";
+import {FormService} from "./service/form.service";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [CalculateService]
+  providers: [CalculateService, FormService]
 })
 export class AppComponent implements OnInit {
   public form: FormGroup;
   public output: any;
 
   constructor(private calculateService: CalculateService,
-              private fb: FormBuilder) {
+              private formService: FormService) {
   }
 
   ngOnInit() {
-    this.form = this.fb.group({
-      wheel: this.fb.group({diameter: null}),
-      chainrings: this.fb.array([
-        this.initSprocket(0)
-      ]),
-      cogs: this.fb.array([
-        this.initSprocket(0)
-      ])
-    });
-  }
-
-  initSprocket(id: number) {
-    return this.fb.group({id: id, teeth: null});
+    this.form = this.formService.initForm();
   }
 
   add(controlName: string, id: number) {
-    const control = <FormArray>this.form.controls[controlName];
-    console.log(id);
-    control.push(this.initSprocket(id));
+    this.formService.add(this.form, controlName, id);
   }
 
   remove(controlName: string, i: number) {
-    const control = <FormArray>this.form.controls[controlName];
-    control.removeAt(i);
+    this.formService.remove(this.form, controlName, i);
   }
 
   updateOutput(): any {
@@ -49,7 +35,6 @@ export class AppComponent implements OnInit {
       this.output = {};
       this.output.cogs = bike.cogs;
       this.output.chainrings = bike.chainrings;
-      console.log(this.calculateService.getGearInchesMap(bike));
       this.output.gearInchesMap = this.calculateService.getGearInchesMap(bike);
     }
   }
