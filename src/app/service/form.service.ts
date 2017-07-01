@@ -3,11 +3,13 @@ import {FormBuilder, FormArray, FormGroup, Validators} from "@angular/forms";
 import {Params} from "@angular/router";
 import {Bike} from "../model/bike.interface";
 import {Sprocket} from "../model/sprocket.interface";
+import {Location } from '@angular/common';
 
 @Injectable()
 export class FormService {
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,
+              private location: Location) {
   }
 
   public initForm(params: Params) {
@@ -58,14 +60,19 @@ export class FormService {
 
 
   getLink(bike: Bike) {
-    var link = "/";
-    link = link.concat("?");
-    link = link.concat("wheelDiameter=".concat("" + bike.wheel.diameter));
-    link = link.concat("&");
-    link = link.concat("chainrings=".concat("[" + this.getString(bike.chainrings)) + "]");
-    link = link.concat("&");
-    link = link.concat("cogs=".concat("[" + this.getString(bike.cogs)) + "]");
-    return link;
+    var link = "/" + this.getQueryString(bike);
+    return this.location.prepareExternalUrl(link);
+  }
+
+  private getQueryString(bike: Bike) {
+    var queryString = "";
+    queryString += "?";
+    queryString += "wheelDiameter=" + "" + bike.wheel.diameter;
+    queryString += "&";
+    queryString += "chainrings=" + "[" + this.getString(bike.chainrings) + "]";
+    queryString += "&";
+    queryString += "cogs=" + "[" + this.getString(bike.cogs) + "]";
+    return queryString;
   }
 
   private getString(sprockets: Sprocket[]): string {
