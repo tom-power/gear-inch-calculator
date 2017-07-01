@@ -1,6 +1,6 @@
 import { GearInchCalculatorPage } from './app.po';
 
-describe('gear-inch-calculator-angular2 App', () => {
+describe('gear-inch-calculator-angular App', () => {
   let page: GearInchCalculatorPage;
 
   beforeEach(() => {
