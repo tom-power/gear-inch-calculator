@@ -108,6 +108,7 @@
     <div class="row top-margin-20">
       <div class="col text-center">
         <button class="btn btn-primary"
+                [disabled]="!form.valid"
                 (click)="updateOutput()">
           Calculate
         </button>
