@@ -7,8 +7,8 @@ describe('gear-inch-calculator-angular App', () => {
     page = new GearInchCalculatorPage();
   });
 
-  it('should display welcome message', () => {
+  it('should have correct paragraph text', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Welcome to app!!');
+    expect(page.getParagraphText()).toEqual('Gear inch calculator');
   });
 });
