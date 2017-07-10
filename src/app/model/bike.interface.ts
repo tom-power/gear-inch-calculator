@@ -1,5 +1,5 @@
-import {Wheel} from "./wheel.interface";
-import {Sprocket} from "./sprocket.interface";
+import {Wheel} from './wheel.interface';
+import {Sprocket} from './sprocket.interface';
 
 export interface Bike {
   wheel: Wheel;

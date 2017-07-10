@@ -3,7 +3,6 @@ import {NgModule} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {AppComponent} from './app.component';
-import {KeysPipe} from './utils/keys.pipe';
 import {RouterModule, Routes} from '@angular/router';
 import {LinkService} from './service/link.service';
 import {FormService} from './service/form.service';
@@ -18,8 +17,7 @@ const appRoutes: Routes = [
 
 @NgModule({
   declarations: [
-    AppComponent,
-    KeysPipe
+    AppComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),

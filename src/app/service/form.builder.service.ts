@@ -21,8 +21,8 @@ export class FormBuilderService {
 
   private getWheel(diameter: number): FormGroup {
     return this.fb.group({
-      diameter: [diameter, Validators.required]
-    })
+      diameter: [diameter, [Validators.required, Validators.pattern('[0-9]{1,2}[.]{0,1}[0-9]{0,2}')]]
+    });
   }
 
   private getSprocketFormArray(teethArr: number[]): FormArray {
@@ -39,7 +39,7 @@ export class FormBuilderService {
 
   getSprocketFormGroup(id: number, teeth: number): FormGroup {
     return this.fb.group({
-      id: id, teeth: [teeth, Validators.required]
+      id: id, teeth: [teeth, [Validators.required, Validators.pattern('[0-9]{1,3}')]]
     });
   }
 

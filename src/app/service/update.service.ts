@@ -10,8 +10,8 @@ export class UpdateService {
               private linkService: LinkService) {
   }
 
-  getOutput(bike:Bike): any {
-    let output: any = {};
+  getOutput(bike: Bike): any {
+    const output: any = {};
     output.cogs = bike.cogs;
     output.chainrings = bike.chainrings;
     output.gearInchesMap = this.gearInchMapService.getGearInchesMap(bike);

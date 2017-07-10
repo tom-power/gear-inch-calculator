@@ -27,7 +27,7 @@ describe('GearInchMapServiceService', () => {
         chainrings: null,
         cogs: null
       };
-    };
+    }
 
     it('should return the correct number of chainrings', inject([GearInchMapService], (service: GearInchMapService) => {
       const bike = getBike();
@@ -46,10 +46,10 @@ describe('GearInchMapServiceService', () => {
     it('should return correct gear inch calculations', inject([GearInchMapService, ], (service: GearInchMapService, calculateService: CalculateService) => {
       const bike = getBike();
       const gearInchesMap = service.getGearInchesMap(bike);
-      for (let chainringId of gearInchesMap) {
-        for (let cogId of gearInchesMap[chainringId]) {
-          let gearInches = gearInchesMap[chainringId][cogId];
-          let gearInchesCalc = this.calculateService.getGearInches(
+      for (const chainringId of gearInchesMap) {
+        for (const cogId of gearInchesMap[chainringId]) {
+          const gearInches = gearInchesMap[chainringId][cogId];
+          const gearInchesCalc = this.calculateService.getGearInches(
             bike.wheel.diameter,
             bike.chainrings.find(c => c.id == chainringId).teeth,
             bike.cogs.find(c => c.id == cogId).teeth
@@ -76,7 +76,7 @@ describe('GearInchMapServiceService', () => {
           {id: 7, teeth: 9}
         ]
       };
-    };
+    }
 
   });
 

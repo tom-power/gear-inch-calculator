@@ -19,7 +19,7 @@ export class LinkService {
   private getSprocketTeethAsCsv(sprockets: Sprocket[]): string {
     return sprockets.reduce((str, sprocket) => {
       const comma = str !== '' ? ',' : '';
-      return str + comma + sprocket.teeth
+      return str + comma + sprocket.teeth;
     }, '');
   }
 

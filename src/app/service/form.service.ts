@@ -11,9 +11,9 @@ export class FormService {
   }
 
   initForm(params: Params): FormGroup {
-    let wheelDiameter = +params[URLParams.wheelDiameterParam];
-    let chainrings = this.getNumberArray(params[URLParams.chainringsParam]);
-    let cogs = this.getNumberArray(params[URLParams.cogsParam]);
+    const wheelDiameter = +params[URLParams.wheelDiameterParam];
+    const chainrings = this.getNumberArray(params[URLParams.chainringsParam]);
+    const cogs = this.getNumberArray(params[URLParams.cogsParam]);
     return this.formBuilderService.initForm(wheelDiameter, chainrings, cogs);
   }
 

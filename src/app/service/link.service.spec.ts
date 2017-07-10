@@ -38,7 +38,7 @@ describe('LinkService', () => {
           {id: 7, teeth: 9}
         ]
       };
-    };
+    }
 
   });
 
