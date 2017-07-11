@@ -28,7 +28,7 @@
       <div class="form-group top-margin-20">
         <div formArrayName="chainrings">
           <label>Chainrings</label>
-          <div *ngFor="let chainring of form.controls['chainrings'].controls; let i=index;let last=last">
+          <div *ngFor="let chainring of chainrings.controls; let i=index;let last=last">
             <div [formGroupName]="i">
               <input type="hidden"
                      formControlName="id"
@@ -48,7 +48,7 @@
                 Add
               </button>
               <button class="btn btn-primary btn-xs"
-                      *ngIf="form.controls['chainrings'].controls.length > 1"
+                      *ngIf="chainrings.controls.length > 1"
                       (click)="remove('chainrings', i)"
               >
                 Remove
@@ -67,7 +67,7 @@
       <div class='form-group top-margin-20'>
         <div formArrayName="cogs">
           <label>Cogs</label>
-          <div *ngFor="let cog of form.controls['cogs'].controls; let i=index; let last=last">
+          <div *ngFor="let cog of cogs.controls; let i=index; let last=last">
             <div [formGroupName]="i">
               <input type="hidden"
                      formControlName="id"
@@ -86,7 +86,7 @@
                 Add
               </button>
               <button class="btn btn-primary btn-xs"
-                      *ngIf="form.controls['cogs'].controls.length > 1"
+                      *ngIf="cogs.controls.length > 1"
                       (click)="remove('cogs', i)">
                 Remove
               </button>

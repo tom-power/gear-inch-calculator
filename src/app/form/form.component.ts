@@ -1,5 +1,5 @@
 import {Component, Input, OnChanges} from '@angular/core';
-import {FormGroup} from '@angular/forms';
+import {FormArray, FormGroup} from '@angular/forms';
 import {FormService} from 'app/core/service/form.service';
 import {Params} from '@angular/router';
 import {UpdateService} from '../core/service/update.service';
@@ -35,6 +35,14 @@ export class FormComponent implements OnChanges {
     if (this.form.valid) {
       this.updateService.updateOutput(this.form.value);
     }
+  }
+
+  get chainrings() {
+    return <FormArray>this.form.get('chainrings');
+  }
+
+  get cogs() {
+    return <FormArray>this.form.get('cogs');
   }
 
 }
