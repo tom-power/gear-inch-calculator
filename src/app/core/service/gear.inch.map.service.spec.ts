@@ -29,17 +29,24 @@ describe('GearInchMapServiceService', () => {
       };
     }
 
-    it('should return the correct number of chainrings', inject([GearInchMapService], (service: GearInchMapService) => {
+    it('should return the correct chainrings', inject([GearInchMapService], (service: GearInchMapService) => {
       const bike = getBike();
       const gearInchesMap = service.getGearInchesMap(bike);
       expect(Object.keys(gearInchesMap).length).toEqual(bike.chainrings.length);
+      for (const chainringId of gearInchesMap) {
+        expect(bike.chainrings.find(c => c.id === chainringId)).toBeTruthy();
+      }
     }));
 
-    it('should return the correct number of cogs', inject([GearInchMapService], (service: GearInchMapService) => {
+    it('should return the correct cogs', inject([GearInchMapService], (service: GearInchMapService) => {
       const bike = getBike();
       const gearInchesMap = service.getGearInchesMap(bike);
-      Object.keys(gearInchesMap).forEach(k => {
-        expect(Object.keys(gearInchesMap[k]).length).toEqual(bike.cogs.length);
+      Object.keys(gearInchesMap).forEach(chainringId => {
+        const cogIds = Object.keys(gearInchesMap[chainringId]);
+        expect(cogIds.length).toEqual(bike.cogs.length);
+        for (const cogId of cogIds) {
+          expect(bike.cogs.find(c => c.id === +cogId)).toBeTruthy();
+        }
       });
     }));
 

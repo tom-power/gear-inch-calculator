@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {FormService} from 'app/core/service/form.service';
 import {Params} from '@angular/router';
@@ -9,7 +9,7 @@ import {UpdateService} from '../core/service/update.service';
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.css']
 })
-export class FormComponent implements OnInit {
+export class FormComponent implements OnChanges {
 
   form: FormGroup;
   @Input() params: Params;
@@ -18,8 +18,9 @@ export class FormComponent implements OnInit {
               private updateService: UpdateService) {
   }
 
-  ngOnInit() {
+  ngOnChanges() { // to get params from @Input
     this.form = this.formService.initForm(this.params);
+    this.updateOutput();
   }
 
   add(controlName: string, id: number) {

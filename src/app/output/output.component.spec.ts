@@ -21,4 +21,6 @@ describe('Component: Output', () => {
     component = fixture.componentInstance;
   });
 
+  // TODO
+
 });

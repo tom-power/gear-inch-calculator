@@ -34,20 +34,50 @@ describe('Component: Form', () => {
     fixture = TestBed.createComponent(FormComponent);
     component = fixture.componentInstance;
     component.params = {};
-    component.ngOnInit();
+    component.ngOnChanges();
   });
 
   it('should be invalid when empty', () => {
     expect(component.form.valid).toBeFalsy();
   });
 
+  describe('app parameters', () => {
+
+    beforeEach(() => {
+      component.params = {
+        'wheel-diameter': '17',
+        'chainrings': '[60]',
+        'cogs': '[10,9]'
+      };
+      component.ngOnChanges();
+    });
+
+    it('should populate wheel field correctly', () => {
+      const wheelDiameter = getWheelDiameterControl();
+      expect(wheelDiameter.valid).toBeTruthy();
+      expect(wheelDiameter.value).toEqual(17);
+    });
+
+    it('should populate chainring field correctly', () => {
+      const chainringTeeth = getChainringTeethControl();
+      expect(chainringTeeth.valid).toBeTruthy();
+      expect(chainringTeeth.value).toEqual(60);
+    });
+
+    it('should populate cog field correctly', () => {
+      const cogTeeth = getCogTeethControl();
+      expect(cogTeeth.valid).toBeTruthy();
+      expect(cogTeeth.value).toEqual(10);
+    });
+
+  });
+
   describe('wheel field', () => {
 
     let wheelDiameter;
 
-    beforeEach(() => {
-      const wheel: FormGroup = <FormGroup>component.form.controls['wheel'];
-      wheelDiameter = wheel.controls['diameter'];
+    beforeAll(() => {
+      wheelDiameter = getWheelDiameterControl();
     });
 
     it('should be invalid when empty', () => {
@@ -67,14 +97,12 @@ describe('Component: Form', () => {
 
   });
 
-  describe('chainrings', () => {
+  describe('chainrings field', () => {
 
     let chainringTeeth;
 
-    beforeEach(() => {
-      const chainrings: FormArray = <FormArray>component.form.controls['chainrings'];
-      const thisChainring = <FormGroup>chainrings.controls[0];
-      chainringTeeth = thisChainring.controls['teeth'];
+    beforeAll(() => {
+      chainringTeeth = getChainringTeethControl();
     });
 
     it('should be invalid when empty', () => {
@@ -94,14 +122,12 @@ describe('Component: Form', () => {
 
   });
 
-  describe('cogs', () => {
+  describe('cogs field', () => {
 
     let cogTeeth;
 
-    beforeEach(() => {
-      const cogs: FormArray = <FormArray>component.form.controls['cogs'];
-      const thisCog = <FormGroup>cogs.controls[0];
-      cogTeeth = thisCog.controls['teeth'];
+    beforeAll(() => {
+      cogTeeth = getCogTeethControl();
     });
 
     it('should be invalid when empty', () => {
@@ -120,6 +146,25 @@ describe('Component: Form', () => {
     });
 
   });
+
+
+  function getCogTeethControl() {
+    const cogs: FormArray = <FormArray>component.form.controls['cogs'];
+    const thisCog = <FormGroup>cogs.controls[0];
+    return thisCog.controls['teeth'];
+  }
+
+  function getChainringTeethControl() {
+    const chainrings: FormArray = <FormArray>component.form.controls['chainrings'];
+    const thisChainring = <FormGroup>chainrings.controls[0];
+    return thisChainring.controls['teeth'];
+  }
+
+  function getWheelDiameterControl() {
+    const wheel: FormGroup = <FormGroup>component.form.controls['wheel'];
+    const wheelDiameter = wheel.controls['diameter'];
+    return wheelDiameter;
+  }
 
 
 });

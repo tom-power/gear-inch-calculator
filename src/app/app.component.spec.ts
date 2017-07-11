@@ -33,4 +33,6 @@ describe('Component: App', () => {
     component.ngOnInit();
   });
 
+  // TODO
+
 });
