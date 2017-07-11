@@ -1,7 +1,7 @@
 import {inject, TestBed} from '@angular/core/testing';
 
 import {GearInchMapService} from './gear.inch.map.service';
-import {Bike} from 'app/model/bike.interface';
+import {Bike} from 'app/core/model/bike.interface';
 import {CalculateService} from './calculate.service';
 
 describe('GearInchMapServiceService', () => {

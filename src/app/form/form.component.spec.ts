@@ -1,46 +1,29 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {FormArray, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {AppComponent} from './app.component';
-import {RouterModule, Routes} from '@angular/router';
-import {APP_BASE_HREF} from '@angular/common';
-import {GearInchMapService} from 'app/core/service/gear.inch.map.service';
-import {CalculateService} from 'app/core/service/calculate.service';
+import {FormComponent} from './form.component';
 import {FormBuilderService} from 'app/core/service/form.builder.service';
-import {LinkService} from 'app/core/service/link.service';
-import {UpdateService} from 'app/core/service/update.service';
 import {FormService} from 'app/core/service/form.service';
 
-const appRoutes: Routes = [
-  {path: '*', component: AppComponent}
-];
+describe('Component: Form', () => {
 
-describe('Component: App', () => {
-
-  let component: AppComponent;
-  let fixture: ComponentFixture<AppComponent>;
+  let component: FormComponent;
+  let fixture: ComponentFixture<FormComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
         ReactiveFormsModule,
         FormsModule,
-        RouterModule.forRoot(appRoutes)
       ],
       declarations: [
-        AppComponent
+        FormComponent
       ],
       providers: [
-        {provide: APP_BASE_HREF, useValue: '/'},
-        UpdateService,
         FormService,
-        FormBuilderService,
-        LinkService,
-        CalculateService,
-        GearInchMapService
+        FormBuilderService
       ]
     });
-
-    fixture = TestBed.createComponent(AppComponent);
+    fixture = TestBed.createComponent(FormComponent);
     component = fixture.componentInstance;
     component.ngOnInit();
   });

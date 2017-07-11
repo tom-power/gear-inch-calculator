@@ -1,0 +1,38 @@
+<div class="row top-margin-20">
+  <div class="col">
+    <div class="table-responsive">
+      <table border="1"
+             *ngIf="output != null"
+             class="table table-striped table-bordered table-condensed"
+             style="padding:auto">
+        <thead>
+        <tr>
+          <td></td>
+          <td *ngFor="let cog of output.cogs">
+            {{cog.teeth}}
+          </td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let chainring of output.chainrings">
+          <td style="background-color:white">
+            {{chainring.teeth}}
+          </td>
+          <th *ngFor="let gi of output.gearInchesMap[chainring.id]">
+            {{gi.toFixed(2)}}
+          </th>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="row" style="margin-bottom: 20px">
+      <div class="col text-center">
+        <a href="{{output.link}}"
+           *ngIf="output != null"
+           class="btn btn-primary">
+          Link to this calculation
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

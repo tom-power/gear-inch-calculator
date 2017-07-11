@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Bike} from '../model/bike.interface';
 import {LinkService} from './link.service';
-import {GearInchMapService} from 'app/service/gear.inch.map.service';
+import {GearInchMapService} from 'app/core/service/gear.inch.map.service';
 
 @Injectable()
 export class UpdateService {

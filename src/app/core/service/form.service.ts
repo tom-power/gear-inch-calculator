@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {FormArray, FormGroup} from '@angular/forms';
 import {Params} from '@angular/router';
-import {FormBuilderService} from 'app/service/form.builder.service';
-import {URLParams} from 'app/utils/url.params';
+import {FormBuilderService} from 'app/core/service/form.builder.service';
+import {URLParams} from 'app/core/utils/url.params';
 
 @Injectable()
 export class FormService {
