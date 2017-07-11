@@ -1,24 +1,26 @@
-import {Component, Input} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UpdateService} from 'app/core/service/update.service';
 import {Location} from '@angular/common';
-import {Bike} from '../core/model/bike.interface';
 
 @Component({
   selector: 'app-output-root',
   templateUrl: './output.component.html',
   styleUrls: ['./output.component.css']
 })
-export class OutputComponent {
-  @Input() update: Bike;
+export class OutputComponent implements OnInit {
+
   output: any;
 
   constructor(private updateService: UpdateService,
               private location: Location) {
   }
 
-  updateOutput(): any {
-    this.output = this.updateService.getOutput(this.update);
-    this.updateLink();
+  ngOnInit(): void {
+    this.updateService.getOutput().subscribe(
+      output => {
+        this.output = output;
+        this.updateLink();
+      });
   }
 
   private updateLink() {

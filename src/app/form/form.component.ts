@@ -1,8 +1,8 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {FormService} from 'app/core/service/form.service';
 import {Params} from '@angular/router';
-import {Bike} from '../core/model/bike.interface';
+import {UpdateService} from '../core/service/update.service';
 
 @Component({
   selector: 'app-form-root',
@@ -10,11 +10,12 @@ import {Bike} from '../core/model/bike.interface';
   styleUrls: ['./form.component.css']
 })
 export class FormComponent implements OnInit {
+
   form: FormGroup;
   @Input() params: Params;
-  @Output() update = new EventEmitter<Bike>();
 
-  constructor(private formService: FormService) {
+  constructor(private formService: FormService,
+              private updateService: UpdateService) {
   }
 
   ngOnInit() {
@@ -31,7 +32,7 @@ export class FormComponent implements OnInit {
 
   updateOutput() {
     if (this.form.valid) {
-      this.update = this.form.value;
+      this.updateService.updateOutput(this.form.value);
     }
   }
 
