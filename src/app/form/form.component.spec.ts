@@ -3,6 +3,10 @@ import {FormArray, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/f
 import {FormComponent} from './form.component';
 import {FormBuilderService} from 'app/core/service/form.builder.service';
 import {FormService} from 'app/core/service/form.service';
+import {UpdateService} from '../core/service/update.service';
+import {GearInchMapService} from '../core/service/gear.inch.map.service';
+import {CalculateService} from '../core/service/calculate.service';
+import {LinkService} from '../core/service/link.service';
 
 describe('Component: Form', () => {
 
@@ -20,11 +24,16 @@ describe('Component: Form', () => {
       ],
       providers: [
         FormService,
-        FormBuilderService
+        FormBuilderService,
+        UpdateService,
+        GearInchMapService,
+        CalculateService,
+        LinkService
       ]
     });
     fixture = TestBed.createComponent(FormComponent);
     component = fixture.componentInstance;
+    component.params = {};
     component.ngOnInit();
   });
 

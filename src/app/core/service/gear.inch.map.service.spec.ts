@@ -43,16 +43,16 @@ describe('GearInchMapServiceService', () => {
       });
     }));
 
-    it('should return correct gear inch calculations', inject([GearInchMapService, ], (service: GearInchMapService, calculateService: CalculateService) => {
+    it('should return correct gear inch calculations', inject([GearInchMapService,], (service: GearInchMapService, calculateService: CalculateService) => {
       const bike = getBike();
       const gearInchesMap = service.getGearInchesMap(bike);
       for (const chainringId of gearInchesMap) {
         for (const cogId of gearInchesMap[chainringId]) {
           const gearInches = gearInchesMap[chainringId][cogId];
-          const gearInchesCalc = this.calculateService.getGearInches(
+          const gearInchesCalc = calculateService.getGearInches(
             bike.wheel.diameter,
-            bike.chainrings.find(c => c.id == chainringId).teeth,
-            bike.cogs.find(c => c.id == cogId).teeth
+            bike.chainrings.find(c => c.id === chainringId).teeth,
+            bike.cogs.find(c => c.id === cogId).teeth
           );
           expect(gearInches).toEqual(gearInchesCalc);
         }
