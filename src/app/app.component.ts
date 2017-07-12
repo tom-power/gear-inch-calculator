@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
-import {UpdateService} from './core/service/update.service';
 
 @Component({
   selector: 'app-root',

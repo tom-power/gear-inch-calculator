@@ -50,7 +50,7 @@ describe('GearInchMapServiceService', () => {
       });
     }));
 
-    it('should return correct gear inch calculations', inject([GearInchMapService,], (service: GearInchMapService, calculateService: CalculateService) => {
+    it('should return correct gear inch calculations', inject([GearInchMapService], (service: GearInchMapService, calculateService: CalculateService) => {
       const bike = getBike();
       const gearInchesMap = service.getGearInchesMap(bike);
       for (const chainringId of gearInchesMap) {

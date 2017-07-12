@@ -1,5 +1,4 @@
 import {Injectable} from '@angular/core';
-import {Bike} from '../model/bike.interface';
 
 @Injectable()
 export class CalculateService {
