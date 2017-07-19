@@ -1,6 +1,6 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {OutputComponent} from './output.component';
-import {UpdateService} from 'app/core/service/update.service';
+import {UpdateService} from 'app/shared/service/update.service';
 
 describe('Component: Output', () => {
 

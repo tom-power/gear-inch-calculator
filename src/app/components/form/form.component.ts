@@ -1,8 +1,8 @@
 import {Component, Input, OnChanges} from '@angular/core';
 import {FormArray, FormGroup} from '@angular/forms';
-import {FormService} from 'app/core/service/form.service';
+import {FormService} from 'app/shared/service/form.service';
 import {Params} from '@angular/router';
-import {UpdateService} from '../core/service/update.service';
+import {UpdateService} from 'app/shared/service/update.service';
 
 @Component({
   selector: 'app-form-root',

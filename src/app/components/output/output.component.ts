@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {UpdateService} from 'app/core/service/update.service';
+import {UpdateService} from 'app/shared/service/update.service';
 import {Location} from '@angular/common';
 import * as _ from 'lodash';
 import {Subscription} from 'rxjs/Subscription';
@@ -19,7 +19,7 @@ export class OutputComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.subscription = this.updateService.getOutput().subscribe(
+    this.subscription = this.updateService.getOutput$().subscribe(
       output => {
         this.output = output;
         this.gearInchesMapToArray();

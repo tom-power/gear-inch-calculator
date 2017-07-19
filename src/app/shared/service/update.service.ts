@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Bike} from '../model/bike.interface';
 import {LinkService} from './link.service';
-import {GearInchMapService} from 'app/core/service/gear.inch.map.service';
+import {GearInchMapService} from 'app/shared/service/gear.inch.map.service';
 import {Subject} from 'rxjs/Subject';
 import {Observable} from 'rxjs/Observable';
 
@@ -10,7 +10,7 @@ export class UpdateService {
 
   private output: any = new Subject<any>();
 
-  getOutput(): Observable<any> {
+  getOutput$(): Observable<any> {
     return this.output.asObservable();
   }
 

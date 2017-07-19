@@ -1,12 +1,12 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {FormArray, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {FormComponent} from './form.component';
-import {FormBuilderService} from 'app/core/service/form.builder.service';
-import {FormService} from 'app/core/service/form.service';
-import {UpdateService} from '../core/service/update.service';
-import {GearInchMapService} from '../core/service/gear.inch.map.service';
-import {CalculateService} from '../core/service/calculate.service';
-import {LinkService} from '../core/service/link.service';
+import {FormBuilderService} from 'app/shared/service/form.builder.service';
+import {FormService} from 'app/shared/service/form.service';
+import {UpdateService} from 'app/shared/service/update.service';
+import {GearInchMapService} from 'app/shared/service/gear.inch.map.service';
+import {CalculateService} from 'app/shared/service/calculate.service';
+import {LinkService} from 'app/shared/service/link.service';
 
 describe('Component: Form', () => {
 
